@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>高知ネイチャースポット・マップ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+    h1 {
+      text-align: center;
+      padding: 10px;
+      background: #2e8b57;
+      color: white;
+    }
+    #map {
+      height: 90vh;
+    }
+  </style>
+</head>
+<body>
+
+<h1>高知ネイチャースポット・マップ</h1>
+<div id="map"></div>
+
+<script>
+  // 地図初期化（高知県中心）
+  const map = L.map('map').setView([33.5597, 133.5311], 8);
+
+  // 地図タイル
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // 自然スポットデータ
+  const spots = [
+    {
+      name: "四万十川",
+      lat: 32.9916,
+      lng: 132.9334,
+      desc: "日本最後の清流と呼ばれる川"
+    },
+    {
+      name: "仁淀川",
+      lat: 33.5590,
+      lng: 133.1685,
+      desc: "透明度の高い『仁淀ブルー』"
+    },
+    {
+      name: "柏島",
+      lat: 32.7785,
+      lng: 132.6507,
+      desc: "海の透明度が非常に高い"
+    },
+    {
+      name: "足摺岬",
+      lat: 32.7217,
+      lng: 132.9875,
+      desc: "太平洋を望む大自然"
+    }
+  ];
+
+  // マーカー追加
+  spots.forEach(spot => {
+    L.marker([spot.lat, spot.lng])
+      .addTo(map)
+      .bindPopup(`<b>${spot.name}</b><br>${spot.desc}`);
+  });
+</script>
+
+</body>
+</html>
